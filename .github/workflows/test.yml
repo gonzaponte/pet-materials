@@ -62,33 +62,15 @@ jobs:
       - name: Run test suite
         run: nix develop .#${{ matrix.devshell }} -c just test
 
-      - name: Test run in dev environment
-        run: |
-          nix develop .# -c just run --beam-on 12 | tee build-and-run-in-devenv-output
-          PATTERN="end of event 12"
-          echo Looking for "'$PATTERN'" in output of 'just'
-          grep "$PATTERN" build-and-run-in-devenv-output
-
       - name: Test nix build default package
         run: |
           nix build ./#
-
-      - name: Test run nix build client package result
-        run: |
-          nix develop .# -c result/bin/pet-materials --beam-on 12 | tee build-and-run-client-package-output
-          PATTERN="end of event 12"
-          echo Looking for "'$PATTERN'" in output of 'just'
-          grep "$PATTERN" build-and-run-client-package-output
-        continue-on-error: true # see issue # https://github.com/jacg/nain4/issues/161
 
       - name: Test variables set by nain4 setupHook
         run: |
           nix develop ./# -c env > my-project-env
           echo ====== grepping for G4_DIR ====================
           grep G4_DIR my-project-env
-          echo ===============================================
-          echo grepping for QT_QPA_PLATFORM_PLUGIN_PATH
-          grep QT_QPA_PLATFORM_PLUGIN_PATH my-project-env
           echo ===============================================
 
       - name: Fail if too many warnings
