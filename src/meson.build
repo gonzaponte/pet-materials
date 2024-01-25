@@ -35,8 +35,8 @@ geant4 = dependency( 'Geant4'
 
 pet_materials_deps     = [nain4, geant4]
 pet_materials_include  = include_directories('.')
-pet_materials_includes = ['LXe.hh']
-pet_materials_sources  = ['LXe.cc']
+pet_materials_includes = ['LXe.hh', 'materials.hh']
+pet_materials_sources  = ['LXe.cc', 'materials.cc']
 
 geant4_include = geant4.get_variable(cmake    : 'Geant4_INCLUDE_DIRS')
 nain4_include  =  nain4.get_variable(pkgconfig: 'includedir'         )
