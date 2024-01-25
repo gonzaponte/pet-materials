@@ -32,16 +32,31 @@ geant4 = dependency( 'Geant4'
                                , 'Geant4::G4UIVisDefinitions'
                                ])
 
-my_app_deps    = [nain4, geant4]
-my_app_include = include_directories('.')
-my_app_sources = ['n4app.cc', 'LXe.cc']
+
+pet_materials_deps     = [nain4, geant4]
+pet_materials_include  = include_directories('.')
+pet_materials_includes = ['LXe.hh']
+pet_materials_sources  = ['LXe.cc']
 
 geant4_include = geant4.get_variable(cmake    : 'Geant4_INCLUDE_DIRS')
 nain4_include  =  nain4.get_variable(pkgconfig: 'includedir'         )
 
-my_app_exe = executable( 'pet-materials'
-                       , my_app_sources
-                       , include_directories: [my_app_include, nain4_include, geant4_include]
-                       , dependencies       : my_app_deps
-                       , install            : true
-                       )
+pet_materials_lib = shared_library( 'pet_materials'
+                                  , pet_materials_sources
+                                  , include_directories: [pet_materials_include, nain4_include, geant4_include]
+                                  , dependencies       : pet_materials_deps
+                                  , install            : true
+                                  )
+
+pet_materials_dep = declare_dependency( include_directories: pet_materials_include
+                                      , link_with          : pet_materials_lib)
+
+
+install_headers(pet_materials_includes)
+
+pkg = import('pkgconfig')
+pkg.generate( pet_materials_lib
+            , description: 'pet_materials'
+            , name       : 'pet_materials'
+            , filebase   : 'pet_materials'
+            )
