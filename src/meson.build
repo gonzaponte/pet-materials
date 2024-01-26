@@ -41,7 +41,7 @@ pet_materials_sources  = ['pet-LXe.cc', 'pet-materials.cc']
 geant4_include = geant4.get_variable(cmake    : 'Geant4_INCLUDE_DIRS')
 nain4_include  =  nain4.get_variable(pkgconfig: 'includedir'         )
 
-pet_materials_lib = shared_library( 'pet_materials'
+pet_materials_lib = shared_library( 'pet-materials'
                                   , pet_materials_sources
                                   , include_directories: [pet_materials_include, nain4_include, geant4_include]
                                   , dependencies       : pet_materials_deps
@@ -56,7 +56,7 @@ install_headers(pet_materials_includes)
 
 pkg = import('pkgconfig')
 pkg.generate( pet_materials_lib
-            , description: 'pet_materials'
-            , name       : 'pet_materials'
-            , filebase   : 'pet_materials'
+            , description: 'pet-materials'
+            , name       : 'pet-materials'
+            , filebase   : 'pet-materials'
             )
