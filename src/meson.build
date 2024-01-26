@@ -6,6 +6,7 @@ project( 'pet-materials'
                            , 'optimization=2'
                            , 'cpp_std=c++20'
                            , 'prefix=@0@/../install/pet-materials/'.format(meson.source_root())
+                           , 'libdir=lib' # removes architecture from path
                            ]
        )
 
