@@ -1,4 +1,4 @@
-#include "LXe.hh"
+#include "pet-LXe.hh"
 
 #include <n4-all.hh>
 
