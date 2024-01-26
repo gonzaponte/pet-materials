@@ -19,16 +19,6 @@
       buildInputs = [ nain4.packages.nain4 ];
     };
 
-    # Executed by `nix run <URL of this flake> -- <args?>`
-    apps.default = self.apps.pet-materials;
-
-    # Executed by `nix run <URL of this flake>#pet-materials`
-    apps.pet-materials = make-app {
-      executable = "pet-materials";
-      args = "--macro-path ${self}/macs ${args-from-cli}";
-      package = self.packages.default;
-    };
-
     # Used by `direnv` when entering this directory (also by `nix develop <URL to this flake>`)
     devShell = self.devShells.clang;
 
@@ -43,16 +33,4 @@
       name = "pet-materials-gcc-devenv";
       packages = nain4.deps.dev-shell-packages;
     };
-
-    # 1. `nix build` .#singularity
-    # 2. `scp result <me>@lxplus7.cern.ch:hello.img`
-    # 3. [on lxplus] `singularity run hello.img`
-    packages.singularity = pkgs.singularity-tools.buildImage {
-      name = "pet-materials";
-      contents = [ self.apps.pet-materials.program ];
-      runScript = "${self.apps.pet-materials.program} $@";
-      diskSize = 10240;
-      memSize = 5120;
-    };
-
-  }
+}
