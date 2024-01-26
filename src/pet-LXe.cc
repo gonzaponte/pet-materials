@@ -4,7 +4,7 @@
 
 #include <G4SystemOfUnits.hh> // physical units such as `m` for metre
 
-
+namespace petmat {
 
 const G4double OPTPHOT_MIN_E = 1    * eV;
 const G4double OPTPHOT_MAX_E = 8.21 * eV;
@@ -98,3 +98,5 @@ G4Material* LXe_with_properties() {
   LXe -> SetMaterialPropertiesTable(LXe_optical_material_properties());
   return LXe;
 }
+
+} // namespace petmat

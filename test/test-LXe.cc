@@ -29,7 +29,7 @@ TEST_CASE("dummy test2", "[dummy]") {
 
 TEST_CASE("liquid xenon properties", "[.xfail][xenon][properties]") {
   // --- Geometry -----
-  auto LXe = LXe_with_properties();
+  auto LXe = petmat::LXe_with_properties();
   REQUIRE_THAT( LXe -> GetDensity() / (g / cm3)
               , WithinRel(2.98, 1e-6)
               );
